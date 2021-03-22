@@ -106,3 +106,4 @@ dist
 #Bot
 .idea/
 package-lock.json
+/level-system-database.sqlite3
