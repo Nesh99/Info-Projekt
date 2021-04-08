@@ -18,8 +18,14 @@
   },
   "homepage": "https://github.com/Nesh99/Info-Projekt#readme",
   "dependencies": {
-    "discord.js": "^12.5.1",
+    "@discordjs/opus": "^0.5.0",
+    "discord-ytdl-core": "^5.0.2",
+    "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
-    "sqlite3": "^5.0.2"
+    "ffmpeg": "0.0.4",
+    "ffmpeg-static": "^4.3.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "sqlite3": "^5.0.2",
+    "ytdl-core": "^4.5.0"
   }
 }

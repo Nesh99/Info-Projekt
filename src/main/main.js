@@ -1,12 +1,14 @@
 require('dotenv').config();
 const { Client } = require('discord.js');
 const LevelSystem = require('../level-system/level-system')
+const Music = require('../music/music')
 
 // discord client
 const client = new Client();
 
 // client for the Level-System
 const levelSystem = new LevelSystem();
+const music = new Music();
 
 // Emitted when the client becomes ready to start working
 client.on('ready', () => {
@@ -29,10 +31,20 @@ client.on('message', (message) => {
             case 'level':
                 levelSystem.handleCommand(message, args);
                 break;
+            case 'play':
+                music.execute(message, args);
+                break;
+            case 'stop':
+                music.stop(message);
+                break;
+            case 'skip':
+                music.skip(message);
+                break;
             default:
                 message.channel.send('Sorry but I\'m not human enough to understand this!');
                 break;
         }
+
     } else {
         // normal message
 
