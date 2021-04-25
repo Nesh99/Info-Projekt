@@ -1,11 +1,18 @@
 const userLevelTable = 'user_level';
 
+/**
+ * Repository for the level-system to access the database
+ */
 class LevelSystemRepository {
 
     constructor(dao) {
         this.dao = dao;
     }
 
+    /**
+     * Create the required Table in the database
+     * @returns {Promise<*>}
+     */
     async createTable() {
         const sql = `
             CREATE TABLE IF NOT EXISTS ${userLevelTable} (
@@ -17,7 +24,11 @@ class LevelSystemRepository {
         return this.dao.run(sql);
     }
 
-    // returns user info and creates user if not exist
+    /**
+     * Returns user info and creates user if not exist
+     * @param userTag
+     * @returns {Promise<*>}
+     */
     async getUser(userTag) {
         let user = await this.dao.get(`SELECT * FROM ${userLevelTable} WHERE user_tag = ?`, [userTag]);
         if (!user) {
@@ -31,11 +42,22 @@ class LevelSystemRepository {
         return user;
     }
 
+    /**
+     * Get the total exp of a user
+     * @param userTag
+     * @returns {Promise<*>}
+     */
     async getExperience(userTag) {
         let user = await this.getUser(userTag);
         return user['experience'];
     }
 
+    /**
+     * Adds exp to a user
+     * @param userTag
+     * @param exp
+     * @returns {Promise<*>}
+     */
     async addExperience(userTag, exp) {
         let user = await this.getUser(userTag);
         let newExp = user['experience'] + exp;

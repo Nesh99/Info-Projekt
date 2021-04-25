@@ -1,17 +1,27 @@
 const AppDAO = require('../sqlite/dao')
 const LevelSystemRepository = require('./level-system-repository')
 
+/**
+ * Class for managing the level-system
+ */
 class LevelSystem {
 
     constructor() {
+        // Create data access object for connection to database
         const dao = new AppDAO('./level-system-database.sqlite3');
         this.repo = new LevelSystemRepository(dao);
+        // Create tables in database for the leve-system
         this.repo.createTable().then((result) => {
-            console.log('created level-system-db');
+            console.log('created level-system-db! \n');
         });
 
     }
 
+    /**
+     * Handles commands from users
+     * @param message
+     * @param args
+     */
     handleCommand(message, args) {
 
         if (args.length < 1) {
@@ -20,6 +30,10 @@ class LevelSystem {
 
     }
 
+    /**
+     * Handles normal messages from users
+     * @param message
+     */
     handleMessage(message) {
         let tag = message.author.tag;
 
@@ -34,12 +48,15 @@ class LevelSystem {
         });
     }
 
+    /**
+     * Sends level information about the author of the message
+     * @param message
+     */
     sendLevelInfo(message) {
         let tag = message.author.tag;
 
         this.repo.getExperience(tag).then((exp) => {
 
-            // calculate level
             message.channel.send(
                 `${message.author} your current level is ${LevelSystem.calcLevel(exp)}
                 Current exp: ${LevelSystem.calcCurrentExp(exp)}
@@ -51,14 +68,30 @@ class LevelSystem {
     }
 
     // level-tools:
+
+    /**
+     * Calculate the  current level from total exp
+     * @param exp
+     * @returns {number}
+     */
     static calcLevel(exp) {
         return Math.floor(Math.sqrt( (2 * exp) / 25 + 25 / 4 ) - 5 / 2);
     }
 
+    /**
+     * Calculate the current exp in current level from total exp
+     * @param exp
+     * @returns {number}
+     */
     static calcCurrentExp(exp) {
         return exp - ( ( 25 * Math.pow(LevelSystem.calcLevel(exp), 2) + 125 * LevelSystem.calcLevel(exp) ) / 2 );
     }
 
+    /**
+     * Calculate the missing exp to level up from total exp
+     * @param exp
+     * @returns {number}
+     */
     static calcMissingExp(exp) {
         return ( (LevelSystem.calcLevel(exp) + 1) * 25 + 50 ) - LevelSystem.calcCurrentExp(exp);
     }

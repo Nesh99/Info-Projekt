@@ -19,9 +19,11 @@ client.on('ready', () => {
 client.on('message', (message) => {
     if (message.author.bot) return;
 
+    // Check if the message is a command
     if (message.content.startsWith(process.env.PREFIX)) {
-        // command
+        // Message is a command
 
+        // Parse the message into the arguments
         const [CMD_NAME, ...args] = message.content
             .trim()
             .substring(process.env.PREFIX.length)
@@ -46,8 +48,7 @@ client.on('message', (message) => {
         }
 
     } else {
-        // normal message
-
+        // Message is normal
         levelSystem.handleMessage(message);
     }
 
