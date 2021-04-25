@@ -53,7 +53,7 @@ class LevelSystemRepository {
     }
 
     /**
-     * Adds exp to a user
+     * Add exp to a user
      * @param userTag
      * @param exp
      * @returns {Promise<*>}

@@ -18,7 +18,7 @@ class LevelSystem {
     }
 
     /**
-     * Handles commands from users
+     * Handle commands from users
      * @param message
      * @param args
      */
@@ -31,7 +31,7 @@ class LevelSystem {
     }
 
     /**
-     * Handles normal messages from users
+     * Handle normal messages from users
      * @param message
      */
     handleMessage(message) {
@@ -49,7 +49,7 @@ class LevelSystem {
     }
 
     /**
-     * Sends level information about the author of the message
+     * Send level information about the author of the message
      * @param message
      */
     sendLevelInfo(message) {
